@@ -94,10 +94,6 @@ class MyGame(arcade.Window):
         self.physics_engine.update()
 
 
-        
-
-
-
 def main():
     """ Main method """
     window = MyGame()
