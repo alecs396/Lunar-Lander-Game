@@ -93,8 +93,6 @@ class MyGame(arcade.Window):
         # Move the player with the physics engine
         self.physics_engine.update()
 
-#class physicsEngine:
-    #def __init__(self.player_sprite, self.landing_zone_list):
 
         
 
