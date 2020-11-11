@@ -11,7 +11,7 @@ SCREEN_TITLE = "Lunar Lander"
 
 # Constants used to scale our sprites from their original size
 CHARACTER_SCALING = 0.5
-PLAYER_MOVEMENT_SPEED = 3
+PLAYER_MOVEMENT_SPEED = 1
 
 
 class MyGame(arcade.Window):
