@@ -10,7 +10,7 @@ SCREEN_HEIGHT = 650
 SCREEN_TITLE = "Lunar Lander"
 
 # Constants used to scale our sprites from their original size
-CHARACTER_SCALING = 1
+CHARACTER_SCALING = 0.5
 
 
 class MyGame(arcade.Window):
@@ -41,8 +41,8 @@ class MyGame(arcade.Window):
         # Set up the player, specifically placing it at these coordinates.
         image_source = "landerAlpha.png"
         self.player_sprite = arcade.Sprite(image_source, CHARACTER_SCALING)
-        self.player_sprite.center_x = 64
-        self.player_sprite.center_y = 128
+        self.player_sprite.center_x = 500
+        self.player_sprite.center_y = 325
         self.player_list.append(self.player_sprite)
 
     def on_draw(self):
