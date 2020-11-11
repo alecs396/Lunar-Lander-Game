@@ -11,6 +11,7 @@ SCREEN_TITLE = "Lunar Lander"
 
 # Constants used to scale our sprites from their original size
 CHARACTER_SCALING = 0.5
+PLAYER_MOVEMENT_SPEED = 3
 
 
 class MyGame(arcade.Window):
@@ -37,6 +38,7 @@ class MyGame(arcade.Window):
         """ Set up the game here. Call this function to restart the game. """
         #Create the Sprite lists (add the floor later)
         self.player_list = arcade.SpriteList()
+        self.landing_zone_list = arcade.SpriteList(use_spacial_hash=True)
 
         # Set up the lander, specifically placing it at these coordinates (centered for now).
         image_source = "landerAlpha.png"
@@ -53,6 +55,11 @@ class MyGame(arcade.Window):
         
         #Draw Sprites (add floor later)
         self.player_list.draw()
+
+class physicsEngine:
+    def __init__(self.player_sprite, self.landing_zone_list):
+        
+
 
 
 def main():
