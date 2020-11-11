@@ -28,7 +28,7 @@ class MyGame(arcade.Window):
         # go into a list.
 
         self.player_list = None
-        self.wall_list = None
+        self.landing_zone_list = None
 
         # Separate variable that holds the player sprite
         self.player_sprite = None
@@ -42,8 +42,7 @@ class MyGame(arcade.Window):
         """ Set up the game here. Call this function to restart the game. """
         #Create the Sprite lists (add the floor later)
         self.player_list = arcade.SpriteList()
-        self.wall_list = arcade.SpriteList(use_spatial_hash=True)
-        #self.landing_zone_list = arcade.SpriteList(use_spacial_hash=True)
+        self.landing_zone_list = arcade.SpriteList(use_spatial_hash=True)
 
         # Set up the lander, specifically placing it at these coordinates (centered for now).
         image_source = "landerAlpha.png"
@@ -53,7 +52,7 @@ class MyGame(arcade.Window):
         self.player_list.append(self.player_sprite)
 
         # Create the 'physics engine'
-        self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite, self.wall_list)
+        self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite, self.landing_zone_list)
 
     def on_draw(self):
         """ Render the screen. """
