@@ -35,10 +35,10 @@ class MyGame(arcade.Window):
 
     def setup(self):
         """ Set up the game here. Call this function to restart the game. """
-        #Create the Sprite lists
+        #Create the Sprite lists (add the floor later)
         self.player_list = arcade.SpriteList()
 
-        # Set up the player, specifically placing it at these coordinates.
+        # Set up the lander, specifically placing it at these coordinates (centered for now).
         image_source = "landerAlpha.png"
         self.player_sprite = arcade.Sprite(image_source, CHARACTER_SCALING)
         self.player_sprite.center_x = 500
@@ -51,7 +51,7 @@ class MyGame(arcade.Window):
         #Clear the screen to the background color
         arcade.start_render()
         
-        #Draw Sprites
+        #Draw Sprites (add floor later)
         self.player_list.draw()
 
 
