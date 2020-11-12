@@ -83,8 +83,8 @@ class GameWindow(arcade.Window):
         self.player_sprite = arcade.Sprite("landerAlpha.png",SPRITE_SCALING_PLAYER)
 
         # Set player location
-        grid_x = 5
-        grid_y = 10
+        grid_x = 12
+        grid_y = 15
         self.player_sprite.center_x = SPRITE_SIZE * grid_x + SPRITE_SIZE / 2
         self.player_sprite.center_y = SPRITE_SIZE * grid_y + SPRITE_SIZE / 2
         # Add to player sprite list
