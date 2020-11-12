@@ -68,6 +68,7 @@ class GameWindow(arcade.Window):
         # Track the current state of what key is pressed
         self.left_pressed: bool = False
         self.right_pressed: bool = False
+        self.up_pressed: bool = False
 
         # Set background color
         arcade.set_background_color(arcade.color.BLACK)
@@ -137,6 +138,8 @@ class GameWindow(arcade.Window):
             self.left_pressed = True
         elif key == arcade.key.RIGHT:
             self.right_pressed = True
+        elif key == arcade.key.UP:
+            self.up_pressed = True
 
     def on_key_release(self, key, modifiers):
         """Called when the user releases a key. """
@@ -145,6 +148,8 @@ class GameWindow(arcade.Window):
             self.left_pressed = False
         elif key == arcade.key.RIGHT:
             self.right_pressed = False
+        elif key == arcade.key.UP:
+            self.up_pressed = False
 
     def on_update(self, delta_time):
         """ Movement and game logic """
@@ -158,9 +163,10 @@ class GameWindow(arcade.Window):
             # Create a force to the right. Apply it. Change this to rotation later
             force = (PLAYER_MOVE_FORCE, 0)
             self.physics_engine.apply_force(self.player_sprite, force)
-        else:
-            # Player's feet are not moving. Therefore up the friction so we stop.
-            self.physics_engine.set_friction(self.player_sprite, 1.0)
+        elif self.up_pressed:
+            force = (0, PLAYER_MOVE_FORCE)
+            self.physics_engine.apply_force(self.player_sprite, force)
+
 
         # Moving objects in physics engine
         self.physics_engine.step()
