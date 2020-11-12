@@ -46,6 +46,9 @@ PLAYER_MASS = 2.0
 PLAYER_MAX_HORIZONTAL_SPEED = 450
 PLAYER_MAX_VERTICAL_SPEED = 1600
 
+#Player Movement Force
+PLAYER_MOVE_FORCE = 50
+
 class GameWindow(arcade.Window):
     """ Main Window """
 
@@ -129,15 +132,37 @@ class GameWindow(arcade.Window):
 
     def on_key_press(self, key, modifiers):
         """Called whenever a key is pressed. """
-        pass
+        
+        if key == arcade.key.LEFT:
+            self.left_pressed = True
+        elif key == arcade.key.RIGHT:
+            self.right_pressed = True
 
     def on_key_release(self, key, modifiers):
         """Called when the user releases a key. """
-        pass
+        
+        if key == arcade.key.LEFT:
+            self.left_pressed = False
+        elif key == arcade.key.RIGHT:
+            self.right_pressed = False
 
     def on_update(self, delta_time):
         """ Movement and game logic """
-        """ Movement and game logic """
+
+        # Update player forces based on keys pressed
+        if self.left_pressed and not self.right_pressed:
+            # Create a force to the left. Apply it. Change this to rotation later.
+            force = (-PLAYER_MOVE_FORCE, 0)
+            self.physics_engine.apply_force(self.player_sprite, force)
+        elif self.right_pressed and not self.left_pressed:
+            # Create a force to the right. Apply it. Change this to rotation later
+            force = (PLAYER_MOVE_FORCE, 0)
+            self.physics_engine.apply_force(self.player_sprite, force)
+        else:
+            # Player's feet are not moving. Therefore up the friction so we stop.
+            self.physics_engine.set_friction(self.player_sprite, 1.0)
+
+        # Moving objects in physics engine
         self.physics_engine.step()
 
     def on_draw(self):
