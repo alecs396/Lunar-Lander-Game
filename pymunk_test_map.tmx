@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="2020.10.30" orientation="orthogonal" renderorder="right-down" width="25" height="20" tilewidth="128" tileheight="128" infinite="0" nextlayerid="2" nextobjectid="1">
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="25" height="20" tilewidth="128" tileheight="128" infinite="0" nextlayerid="2" nextobjectid="1">
  <tileset firstgid="1" name="Platforms" tilewidth="128" tileheight="128" tilecount="1" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="0">
-   <image width="128" height="128" source="../../../Downloads/platform_tutorial/images/tiles/grass.png"/>
+   <image width="128" height="128" source="platform_tutorial/images/tiles/grass.png"/>
   </tile>
  </tileset>
  <layer id="1" name="Tile Layer 1" width="25" height="20">
