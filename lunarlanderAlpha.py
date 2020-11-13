@@ -47,7 +47,7 @@ PLAYER_MAX_HORIZONTAL_SPEED = 450
 PLAYER_MAX_VERTICAL_SPEED = 1600
 
 #Player Movement Force
-PLAYER_MOVE_FORCE = 50
+PLAYER_MOVE_FORCE = 65
 
 class GameWindow(arcade.Window):
     """ Main Window """
