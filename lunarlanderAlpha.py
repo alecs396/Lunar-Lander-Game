@@ -82,6 +82,12 @@ class GameWindow(arcade.Window):
         # Create the sprite lists
         self.player_list = arcade.SpriteList()
 
+         # Read in the tiled map
+        map_name = "pymunk_test_map.tmx"
+        my_map = arcade.tilemap.read_tmx(map_name)
+
+        # Read in the map layers
+        self.wall_list = arcade.tilemap.process_layer(my_map, 'Tile Layer 1', SPRITE_SCALING_TILES)
 
         # Create player sprite
         self.player_sprite = arcade.Sprite("landerAlpha.png",SPRITE_SCALING_PLAYER)
@@ -174,6 +180,7 @@ class GameWindow(arcade.Window):
     def on_draw(self):
         """ Draw everything """
         arcade.start_render()
+        self.wall_list.draw()
         self.player_list.draw()
 
 def main():
