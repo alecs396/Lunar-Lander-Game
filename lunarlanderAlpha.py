@@ -135,7 +135,17 @@ class GameWindow(arcade.Window):
                                        max_horizontal_velocity=PLAYER_MAX_HORIZONTAL_SPEED,
                                        max_vertical_velocity=PLAYER_MAX_VERTICAL_SPEED)
 
-
+        # Create the walls.
+        # By setting the body type to PymunkPhysicsEngine.STATIC the walls can't
+        # move.
+        # Movable objects that respond to forces are PymunkPhysicsEngine.DYNAMIC
+        # PymunkPhysicsEngine.KINEMATIC objects will move, but are assumed to be
+        # repositioned by code and don't respond to physics forces.
+        # Dynamic is default.
+        self.physics_engine.add_sprite_list(self.wall_list,
+                                            friction=WALL_FRICTION,
+                                            collision_type="wall",
+                                            body_type=arcade.PymunkPhysicsEngine.STATIC)     
 
     def on_key_press(self, key, modifiers):
         """Called whenever a key is pressed. """
