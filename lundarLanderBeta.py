@@ -49,6 +49,27 @@ PLAYER_MAX_VERTICAL_SPEED = 1600
 #Player Movement Force
 PLAYER_MOVE_FORCE = 65
 
+class Lander:
+    def __init__(self):
+        pass
+    
+    def move(self):
+        if key == arcade.key.LEFT:
+            self.left_pressed = True
+        elif key == arcade.key.RIGHT:
+            self.right_pressed = True
+        elif key == arcade.key.UP:
+            self.up_pressed = True
+    
+    def notMove(self):
+        if key == arcade.key.LEFT:
+            self.left_pressed = False
+        elif key == arcade.key.RIGHT:
+            self.right_pressed = False
+        elif key == arcade.key.UP:
+            self.up_pressed = False
+
+
 class GameWindow(arcade.Window):
     """ Main Window """
 
@@ -150,22 +171,12 @@ class GameWindow(arcade.Window):
     def on_key_press(self, key, modifiers):
         """Called whenever a key is pressed. """
         
-        if key == arcade.key.LEFT:
-            self.left_pressed = True
-        elif key == arcade.key.RIGHT:
-            self.right_pressed = True
-        elif key == arcade.key.UP:
-            self.up_pressed = True
+        
 
     def on_key_release(self, key, modifiers):
         """Called when the user releases a key. """
         
-        if key == arcade.key.LEFT:
-            self.left_pressed = False
-        elif key == arcade.key.RIGHT:
-            self.right_pressed = False
-        elif key == arcade.key.UP:
-            self.up_pressed = False
+        
 
     def on_update(self, delta_time):
         """ Movement and game logic """
