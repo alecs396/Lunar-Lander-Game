@@ -49,29 +49,11 @@ PLAYER_MAX_VERTICAL_SPEED = 1600
 #Player Movement Force
 PLAYER_MOVE_FORCE = 65
 
-class Lander:
-    def __init__(self):
-        pass
-    
-    def move(self):
-        if key == arcade.key.LEFT:
-            self.left_pressed = True
-        elif key == arcade.key.RIGHT:
-            self.right_pressed = True
-        elif key == arcade.key.UP:
-            self.up_pressed = True
-    
-    def notMove(self):
-        if key == arcade.key.LEFT:
-            self.left_pressed = False
-        elif key == arcade.key.RIGHT:
-            self.right_pressed = False
-        elif key == arcade.key.UP:
-            self.up_pressed = False
-
 
 class GameWindow(arcade.Window):
-    """ Main Window """
+    """ Main Window 
+        Stereotype: Controller
+    """
 
     def __init__(self, width, height, title):
         """ Create the variables """
@@ -210,6 +192,30 @@ def main():
     window.setup()
     arcade.run()
 
+
+class Lander:
+    """The Ship the Player controls
+        Stereotype: Structurer, Service Provider, Information Holder
+        (Consider making a class to house the movement methods)
+    """
+    def __init__(self):
+        pass
+    
+    def move(self, key, modifiers):
+        if key == arcade.key.LEFT:
+            self.left_pressed = True
+        elif key == arcade.key.RIGHT:
+            self.right_pressed = True
+        elif key == arcade.key.UP:
+            self.up_pressed = True
+    
+    def notMove(self, key, modifiers):
+        if key == arcade.key.LEFT:
+            self.left_pressed = False
+        elif key == arcade.key.RIGHT:
+            self.right_pressed = False
+        elif key == arcade.key.UP:
+            self.up_pressed = False
 
 if __name__ == "__main__":
     main()
