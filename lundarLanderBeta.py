@@ -154,12 +154,12 @@ class GameWindow(arcade.Window):
 
     def on_key_press(self, key, modifiers):
         """Called whenever a key is pressed. """
-        self.lander.move()
+        self.lander.move(self, key, modifiers)
         
 
     def on_key_release(self, key, modifiers):
         """Called when the user releases a key. """
-        self.lander.notMove()
+        self.lander.notMove(self, key, modifiers)
         
 
     def on_update(self, delta_time):
@@ -197,8 +197,9 @@ def main():
 
 class Lander:
     """The Ship the Player controls
-        Stereotype: Structurer, Service Provider, Information Holder
-        (Consider making a class to house the movement methods)
+        Stereotype: 
+            Structurer, Service Provider, Information Holder
+            (Consider making a class to house the movement methods)
     """
     def __init__(self):
         pass
@@ -218,6 +219,13 @@ class Lander:
             self.right_pressed = False
         elif key == arcade.key.UP:
             self.up_pressed = False
+    
+class Landscape():
+    """This is the landscape of the map.  The landscape should be able to collide and interact with the lander. In otherwords this is the ground.
+        Stereotype:
+            Undecided?
+    """
+    pass
 
 # ------------------------------------------------------------------------------
 # Entry Point
