@@ -57,7 +57,9 @@ class GameWindow(arcade.Window):
 
     def __init__(self, width, height, title):
         """ Create the variables """
-
+        
+        # Create Instances of other Classes
+        self.lander = Lander()
         # Init the parent class
         super().__init__(width, height, title)
 
@@ -152,12 +154,12 @@ class GameWindow(arcade.Window):
 
     def on_key_press(self, key, modifiers):
         """Called whenever a key is pressed. """
-        
+        self.lander.move()
         
 
     def on_key_release(self, key, modifiers):
         """Called when the user releases a key. """
-        
+        self.lander.notMove()
         
 
     def on_update(self, delta_time):
