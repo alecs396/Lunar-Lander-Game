@@ -40,13 +40,13 @@ class Lander():
 class Landscape():
     
     def __init__(self):
-        map_name = "landscape.tmx"
+        map_name = "pymunk_test_map.tmx"
     
     def read(self,map_name):
         my_map = arcade.tilemap.read_tmx(map_name)
         
         # Read in the map layers
-        self.wall_list = arcade.tilemap.process_layer(my_map, 'Landing Zone', SPRITE_SCALING_TILES)
+        self.wall_list = arcade.tilemap.process_layer(my_map, 'Tile Layer 1', SPRITE_SCALING_TILES)
 
 class Score():
     pass
