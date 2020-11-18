@@ -199,7 +199,7 @@ class Lander:
     def __init__(self):
         pass
     
-    def move(self, key, modifiers):
+    def on_key_press(self, key, modifiers):
         if key == arcade.key.LEFT:
             self.left_pressed = True
         elif key == arcade.key.RIGHT:
@@ -207,7 +207,7 @@ class Lander:
         elif key == arcade.key.UP:
             self.up_pressed = True
     
-    def notMove(self, key, modifiers):
+    def on_key_release(self, key, modifiers):
         if key == arcade.key.LEFT:
             self.left_pressed = False
         elif key == arcade.key.RIGHT:
