@@ -154,12 +154,14 @@ class GameWindow(arcade.Window):
 
     def on_key_press(self, key, modifiers):
         """Called whenever a key is pressed. """
-        self.lander.move(self, key, modifiers)
+        
+        self.lander.move(key, modifiers)
         
 
     def on_key_release(self, key, modifiers):
         """Called when the user releases a key. """
-        self.lander.notMove(self, key, modifiers)
+        
+        self.lander.notMove(key, modifiers)
         
 
     def on_update(self, delta_time):
@@ -187,13 +189,6 @@ class GameWindow(arcade.Window):
         arcade.start_render()
         self.wall_list.draw()
         self.player_list.draw()
-
-def main():
-    """ Main method """
-    window = GameWindow(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
-    window.setup()
-    arcade.run()
-
 
 class Lander:
     """The Ship the Player controls
@@ -227,8 +222,13 @@ class Landscape():
     """
     pass
 
-# ------------------------------------------------------------------------------
-# Entry Point
-# ------------------------------------------------------------------------------
+#---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+def main():
+    """ Main method """
+    window = GameWindow(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
+    window.setup()
+    arcade.run()
+
 if __name__ == "__main__":
     main()
