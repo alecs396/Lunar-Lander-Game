@@ -201,12 +201,14 @@ class GameWindow(arcade.Window):
         # Update player forces based on keys pressed
         if self.left_pressed and not self.right_pressed:
             # Create a force to the left. Apply it. Change this to rotation later.
-            force = (-PLAYER_MOVE_FORCE, 0)
-            self.physics_engine.apply_force(self.player_sprite, force)
+            #force = (-PLAYER_MOVE_FORCE, 0)
+            #self.physics_engine.apply_force(self.player_sprite, force)
+            pass
         elif self.right_pressed and not self.left_pressed:
             # Create a force to the right. Apply it. Change this to rotation later
-            force = (PLAYER_MOVE_FORCE, 0)
-            self.physics_engine.apply_force(self.player_sprite, force)
+            #force = (PLAYER_MOVE_FORCE, 0)
+            #self.physics_engine.apply_force(self.player_sprite, force)
+            pass
         elif self.up_pressed:
             force = (0, PLAYER_MOVE_FORCE)
             self.physics_engine.apply_force(self.player_sprite, force)
@@ -214,6 +216,7 @@ class GameWindow(arcade.Window):
 
         # Moving objects in physics engine
         self.physics_engine.step()
+        self.player_list.update()
 
     def on_draw(self):
         """ Draw everything """
