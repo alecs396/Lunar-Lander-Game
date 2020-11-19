@@ -52,6 +52,28 @@ PLAYER_MOVE_FORCE = 65
 
 ANGLE_SPEED = 5
 
+class Player(arcade.Sprite):
+    
+    def __init__(self, image, scale):
+        """ Set up the player """
+
+        # Call the parent init
+        super().__init__(image, scale)
+
+        # Create a variable to hold our speed. 'angle' is created by the parent
+        self.speed = 0
+
+    def update(self):
+        # Convert angle in degrees to radians.
+        angle_rad = math.radians(self.angle)
+
+        # Rotate the ship
+        self.angle += self.change_angle
+
+        # Use math to find our change based on our speed and angle
+        self.center_x += -self.speed * math.sin(angle_rad)
+        self.center_y += self.speed * math.cos(angle_rad)
+        
 class GameWindow(arcade.Window):
     """ Main Window """
 
@@ -78,21 +100,10 @@ class GameWindow(arcade.Window):
 
          # Physics engine
         self.physics_engine = Optional[arcade.PymunkPhysicsEngine]
-
+    
+        # Set Working Directory
         file_path = os.path.dirname(os.path.abspath(__file__))
         os.chdir(file_path)
-    
-    def update(self):
-        # Convert angle in degrees to radians.
-        angle_rad = math.radians(self.angle)
-
-        # Rotate the ship
-        self.angle += self.change_angle
-
-        # Use math to find our change based on our speed and angle
-        self.center_x += -self.speed * math.sin(angle_rad)
-        self.center_y += self.speed * math.cos(angle_rad)
-    
     def setup(self):
         """ Set up everything with the game """
         
