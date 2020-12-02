@@ -166,7 +166,7 @@ class Lander:
     def __init__(self):
         self._thrust = (0, 0)
         self._rotation = 0.0
-        self._fuel = 2000
+        self._fuel = 1000
         self._has_crashed = False
 
     def get_fuel(self):
@@ -179,7 +179,6 @@ class Lander:
         if self._fuel == 0:
             return (0, 0)
         else:
-            self._fuel -= 10
             return self._thrust
 
     def set_rotation(self, rotation):
@@ -204,11 +203,16 @@ class InputService:
         force = (0, 0)
         if key == arcade.key.LEFT:
             force = (-PLAYER_MOVE_FORCE, 0)
+            lander._fuel -= 1
         elif key == arcade.key.RIGHT:
             force = (PLAYER_MOVE_FORCE, 0)
+            lander._fuel -= 1
         elif key == arcade.key.UP:
+            lander._fuel -= 1
             force = (0, PLAYER_MOVE_FORCE)
         lander.set_thrust(force)
+    
+
 
 class OutputService:
     
