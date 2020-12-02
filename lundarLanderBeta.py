@@ -161,7 +161,6 @@ class Lander:
     """The Ship the Player controls
         Stereotype: 
             Structurer, Service Provider, Information Holder
-            (Consider making a class to house the movement methods)
     """
     def __init__(self):
         self._thrust = (0, 0)
