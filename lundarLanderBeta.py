@@ -153,6 +153,7 @@ class GameWindow(arcade.Window):
         self.output_service.wall_list.draw()
 
         self.output_service.draw_lander(self.lander)
+        self.output_service.draw_fuel(self.lander)
 
         
 
@@ -178,7 +179,7 @@ class Lander:
         if self._fuel == 0:
             return (0, 0)
         else:
-            # self._fuel -= 10
+            self._fuel -= 10
             return self._thrust
 
     def set_rotation(self, rotation):
@@ -247,6 +248,10 @@ class OutputService:
         # MM: draw remaining fuel indicator
         # MM: draw explosion if lander.hp = 0
         self.player_list.draw()
+
+    def draw_fuel(self,lander):
+        fuel_text = f"Fuel: {lander._fuel}"
+        arcade.draw_text(fuel_text, 12, 600, arcade.csscolor.WHITE, 18)
 
 
 
