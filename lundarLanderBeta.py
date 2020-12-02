@@ -90,15 +90,6 @@ class GameWindow(arcade.Window):
                                                          gravity=gravity)
 
         # Add the player.
-        # For the player, we set the damping to a lower value, which increases
-        # the damping rate. This prevents the character from traveling too far
-        # after the player lets off the movement keys.
-        # Setting the moment to PymunkPhysicsEngine.MOMENT_INF prevents it from
-        # rotating.
-        # Friction normally goes between 0 (no friction) and 1.0 (high friction)
-        # Friction is between two objects in contact. It is important to remember
-        # in top-down games that friction moving along the 'floor' is controlled
-        # by damping.
         self.physics_engine.add_sprite(self.output_service.player_sprite,
                                        friction=PLAYER_FRICTION,
                                        mass=PLAYER_MASS,
@@ -110,12 +101,6 @@ class GameWindow(arcade.Window):
         #self.physics_service.add_sprite(self.output_service.player_sprite)
 
         # Create the walls.
-        # By setting the body type to PymunkPhysicsEngine.STATIC the walls can't
-        # move.
-        # Movable objects that respond to forces are PymunkPhysicsEngine.DYNAMIC
-        # PymunkPhysicsEngine.KINEMATIC objects will move, but are assumed to be
-        # repositioned by code and don't respond to physics forces.
-        # Dynamic is default.
         self.physics_engine.add_sprite_list(self.output_service.wall_list,
                                             friction=WALL_FRICTION,
                                             collision_type="wall",
@@ -123,16 +108,30 @@ class GameWindow(arcade.Window):
 
     def on_key_press(self, key, modifiers):
         """Called whenever a key is pressed. """
-        self.input_service.apply_input(key, self.lander)
-        
+        self.input_service.key_input(key, modifiers)
+    
+    def on_key_release(self, key, modifiers):
+        self.input_service.key_release(key, modifiers)
    
     def on_update(self, delta_time):
         """ Movement and game logic """
-
+        if self.input_service.right:
+            force = (PLAYER_MOVE_FORCE, 0)
+            self.physics_engine.apply_force(self.output_service.player_sprite, force)
+            self.lander._fuel -= 1
+        elif self.input_service.left:
+            force = (-PLAYER_MOVE_FORCE, 0)
+            self.physics_engine.apply_force(self.output_service.player_sprite, force)
+            self.lander._fuel -= 1
+        elif self.input_service.up:
+            force = (0, PLAYER_MOVE_FORCE)
+            self.physics_engine.apply_force(self.output_service.player_sprite, force)
+            self.lander._fuel -= 1
+            
         #self.physics_service.apply_forces(self.lander, self.output_service)
 
-        thrust = self.lander.get_thrust()
-        self.physics_engine.apply_force(self.output_service.player_sprite, thrust)
+        # thrust = self.lander.get_thrust()
+        # self.physics_engine.apply_force(self.output_service.player_sprite, thrust)
 
         # MM: Check for collision with ground
         # MM: Update state of lander
@@ -196,20 +195,38 @@ class Lander:
 class InputService:
 
     def __init__(self):
-        pass
+        self.right = False
+        self.left = False
+        self.up = False
 
-    def apply_input(self, key, lander):
-        force = (0, 0)
-        if key == arcade.key.LEFT:
-            force = (-PLAYER_MOVE_FORCE, 0)
-            lander._fuel -= 1
-        elif key == arcade.key.RIGHT:
-            force = (PLAYER_MOVE_FORCE, 0)
-            lander._fuel -= 1
+    # def apply_input(self, key, lander):
+    #     force = (0, 0)
+    #     if key == arcade.key.LEFT:
+    #         force = (-PLAYER_MOVE_FORCE, 0)
+    #         lander._fuel -= 1
+    #     elif key == arcade.key.RIGHT:
+    #         force = (PLAYER_MOVE_FORCE, 0)
+    #         lander._fuel -= 1
+    #     elif key == arcade.key.UP:
+    #         lander._fuel -= 1
+    #         force = (0, PLAYER_MOVE_FORCE)
+    #     lander.set_thrust(force)
+
+    def key_input(self, key, modifiers):
+        if key == arcade.key.RIGHT:
+            self.right = True
+        elif key == arcade.key.LEFT:
+            self.left = True
         elif key == arcade.key.UP:
-            lander._fuel -= 1
-            force = (0, PLAYER_MOVE_FORCE)
-        lander.set_thrust(force)
+            self.up = True
+
+    def key_release(self, key, modifiers):
+        if key == arcade.key.RIGHT:
+            self.right = False
+        elif key == arcade.key.LEFT:
+            self.left = False
+        elif key == arcade.key.UP:
+            self.up = False
     
 
 
