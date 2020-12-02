@@ -270,7 +270,7 @@ class OutputService:
         self.player_list.draw()
 
     def draw_fuel(self,lander):
-        fuel_text = f"Fuel: {lander._fuel}"
+        fuel_text = f"Fuel: {lander._fuel/10}%"
         arcade.draw_text(fuel_text, 12, 600, arcade.csscolor.WHITE, 18)
 
 
