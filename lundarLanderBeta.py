@@ -115,15 +115,15 @@ class GameWindow(arcade.Window):
    
     def on_update(self, delta_time):
         """ Movement and game logic """
-        if self.input_service.right:
+        if self.input_service.right and self.lander._fuel > 0:
             force = (PLAYER_MOVE_FORCE, 0)
             self.physics_engine.apply_force(self.output_service.player_sprite, force)
             self.lander._fuel -= 1
-        elif self.input_service.left:
+        elif self.input_service.left and self.lander._fuel > 0:
             force = (-PLAYER_MOVE_FORCE, 0)
             self.physics_engine.apply_force(self.output_service.player_sprite, force)
             self.lander._fuel -= 1
-        elif self.input_service.up:
+        elif self.input_service.up and self.lander._fuel > 0:
             force = (0, PLAYER_MOVE_FORCE)
             self.physics_engine.apply_force(self.output_service.player_sprite, force)
             self.lander._fuel -= 1
