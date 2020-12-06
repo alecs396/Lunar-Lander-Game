@@ -153,6 +153,7 @@ class GameWindow(arcade.Window):
 
         self.output_service.draw_lander(self.lander)
         self.output_service.draw_fuel(self.lander)
+        self.output_service.draw_altitude(self.lander)
 
         
 
@@ -272,6 +273,11 @@ class OutputService:
     def draw_fuel(self,lander):
         fuel_text = f"Fuel: {lander._fuel/10}%"
         arcade.draw_text(fuel_text, 12, 600, arcade.csscolor.WHITE, 18)
+
+    def draw_altitude(self, lander):
+        altitude = self.player_sprite.center_y - 44.5
+        altitude_text = f"Altitude: {altitude:.0f}"
+        arcade.draw_text(altitude_text, 165, 600, arcade.csscolor.WHITE, 18)
 
 
 
