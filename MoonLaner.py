@@ -130,11 +130,6 @@ class GameWindow(arcade.Window):
             force = (0, PLAYER_MOVE_FORCE)
             self.physics_engine.apply_force(self.output_service.player_sprite, force)
             self.lander._fuel -= 1
-            
-        #self.physics_service.apply_forces(self.lander, self.output_service)
-
-        # thrust = self.lander.get_thrust()
-        # self.physics_engine.apply_force(self.output_service.player_sprite, thrust)
 
         # MM: Check for collision with ground
         # MM: Update state of lander
@@ -228,12 +223,12 @@ class OutputService:
         self.directory = os.path.dirname(__file__)
         map_name = os.path.join(self.directory, "moon.tmx")
         my_map = arcade.tilemap.read_tmx(map_name)
-        self.wall_list = arcade.tilemap.process_layer(my_map, 'CRASH', SPRITE_SCALING_TILES)
-        self.platform_list = arcade.tilemap.process_layer(my_map, 'LAND', SPRITE_SCALING_TILES)
 
         self.player_list = arcade.SpriteList()
         
         # Read in the map layers
+        self.wall_list = arcade.tilemap.process_layer(my_map, 'CRASH', SPRITE_SCALING_TILES)
+        self.platform_list = arcade.tilemap.process_layer(my_map, 'LAND', SPRITE_SCALING_TILES)
         
         # Create player sprite
         file_name = os.path.join(self.directory, "lander.png")
@@ -248,9 +243,10 @@ class OutputService:
         self.player_list.append(self.player_sprite)
 
     def draw_lander(self, lander):
-        # MM: draw remaining fuel indicator
-        # MM: draw explosion if lander.hp = 0
         self.player_list.draw()
+    
+    def draw_explosion(self, lander):
+        pass
 
     def draw_fuel(self, lander):
         fuel_text = f"Fuel: {lander._fuel/10}%"
@@ -260,6 +256,7 @@ class OutputService:
         altitude = self.player_sprite.center_y - 44.5
         altitude_text = f"Altitude: {altitude:.0f}"
         arcade.draw_text(altitude_text, 165, 600, arcade.csscolor.WHITE, 18)
+    
 
 
 
