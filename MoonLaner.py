@@ -109,6 +109,8 @@ class GameWindow(arcade.Window):
         # Create the Landing Zones
         self.physics_engine.add_sprite_list(self.output_service.platform_list,  friction=WALL_FRICTION, collision_type="land", body_type=arcade.PymunkPhysicsEngine.STATIC) 
 
+        self.physics_engine.add_collision_handler("player", "crash", post_handler=OutputService.wall_hit_handler)
+
     def on_key_press(self, key, modifiers):
         """Called whenever a key is pressed. """
         self.input_service.key_input(key, modifiers)
@@ -133,7 +135,6 @@ class GameWindow(arcade.Window):
 
         # MM: Check for collision with ground
         # MM: Update state of lander
-        self.physics_engine.add_collision_handler("player", "crash", post_handler=OutputService.wall_hit_handler)
         # Moving objects in physics engine
         self.physics_engine.step()
 
