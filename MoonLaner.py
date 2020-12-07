@@ -175,26 +175,6 @@ class Lander:
     def get_fuel(self):
         return self._fuel
 
-    def get_rotation(self):
-        return self._rotation
-
-    def get_thrust(self):
-        if self._fuel == 0:
-            return (0, 0)
-        else:
-            return self._thrust
-
-    def set_rotation(self, rotation):
-        self._rotation += rotation
-        if self._rotation > 45:
-            self._rotation = 45
- 
-    def set_thrust(self, thrust):
-        if thrust[0] > 0:
-            self._rotation += 5
-        elif thrust[0] < 0:
-            self._rotation += 5
-        self._thrust = thrust
     
 
 class InputService:
@@ -268,10 +248,6 @@ class OutputService:
         self.player_list.append(self.player_sprite)
 
     def draw_lander(self, lander):
-        if lander.get_thrust()[0] < 0:
-            self.player_sprite.turn_left(lander.get_rotation())
-        elif lander.get_thrust()[0] > 0:
-            self.player_sprite.turn_right(lander.get_rotation())
         # MM: draw remaining fuel indicator
         # MM: draw explosion if lander.hp = 0
         self.player_list.draw()
