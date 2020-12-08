@@ -162,8 +162,6 @@ class Lander:
             Structurer, Service Provider, Information Holder
     """
     def __init__(self):
-        self._thrust = (0, 0)
-        self._rotation = 0.0
         self._fuel = 500
         self._has_crashed = False
 
