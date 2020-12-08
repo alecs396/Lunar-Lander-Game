@@ -257,7 +257,7 @@ class OutputService:
         altitude_text = f"Altitude: {altitude:.0f}"
         arcade.draw_text(altitude_text, 165, 600, arcade.csscolor.WHITE, 18)
     
-    def wall_hit_handler(self, player_sprite, wall_list, _arbiter, _space, _data):
+    def wall_hit_handler(self, player_sprite, wall_list, _arbiter, _space):
         player_sprite.remove_from_sprite_lists()
 
 def main():
