@@ -260,6 +260,9 @@ class OutputService:
     def wall_hit_handler(self, player_sprite, wall_list, _arbiter, _space):
         player_sprite.remove_from_sprite_lists()
 
+    def platform_hit_handler(self, player_sprite, platform_lis, _arbiter, _space):
+        pass
+
 def main():
     """ Main method """
     window = GameWindow(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
