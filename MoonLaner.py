@@ -164,7 +164,7 @@ class Lander:
     def __init__(self):
         self._thrust = (0, 0)
         self._rotation = 0.0
-        self._fuel = 1000
+        self._fuel = 500
         self._has_crashed = False
 
     def get_fuel(self):
@@ -249,8 +249,12 @@ class OutputService:
         pass
 
     def draw_fuel(self, lander):
-        fuel_text = f"Fuel: {lander._fuel/10}%"
-        arcade.draw_text(fuel_text, 12, 600, arcade.csscolor.WHITE, 18)
+        if lander._fuel > 0:
+            fuel_text = f"Fuel: {(lander._fuel/10)*2}%"
+            arcade.draw_text(fuel_text, 12, 600, arcade.csscolor.WHITE, 18)
+        else:
+            fuel_text = f"Fuel: Empty!"
+            arcade.draw_text(fuel_text, 12, 600, arcade.csscolor.RED, 18)
 
     def draw_altitude(self, lander):
         altitude = self.player_sprite.center_y
