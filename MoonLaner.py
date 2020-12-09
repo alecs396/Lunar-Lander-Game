@@ -218,11 +218,13 @@ class OutputService:
         arcade.set_background_color(arcade.color.BLACK)
 
     def setup(self):
+        # Create Sprite Lists
+        self.player_list = arcade.SpriteList()
+        
+        # Read in Map
         self.directory = os.path.dirname(__file__)
         map_name = os.path.join(self.directory, "moon.tmx")
         my_map = arcade.tilemap.read_tmx(map_name)
-
-        self.player_list = arcade.SpriteList()
         
         # Read in the map layers
         self.wall_list = arcade.tilemap.process_layer(my_map, 'CRASH', SPRITE_SCALING_TILES)
@@ -237,6 +239,7 @@ class OutputService:
         grid_y = 15
         self.player_sprite.center_x = SPRITE_SIZE * grid_x + SPRITE_SIZE / 2
         self.player_sprite.center_y = SPRITE_SIZE * grid_y + SPRITE_SIZE / 2
+        
         # Add to player sprite list
         self.player_list.append(self.player_sprite)
 
@@ -262,7 +265,7 @@ class OutputService:
     def wall_hit_handler(self, player_sprite, wall_list, _arbiter, _space):
         player_sprite.remove_from_sprite_lists()
 
-    def platform_hit_handler(self, player_sprite, platform_lis, _arbiter, _space):
+    def platform_hit_handler(self, player_sprite, platform_list, _arbiter, _space):
         pass
 
 def main():
