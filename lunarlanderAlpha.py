@@ -172,11 +172,11 @@ class GameWindow(arcade.Window):
 
         # Update player forces based on keys pressed
         if self.left_pressed and not self.right_pressed:
-            # Create a force to the left. Apply it. Change this to rotation later.
+            # Create a force to the left. Apply it.
             force = (-PLAYER_MOVE_FORCE, 0)
             self.physics_engine.apply_force(self.player_sprite, force)
         elif self.right_pressed and not self.left_pressed:
-            # Create a force to the right. Apply it. Change this to rotation later
+            # Create a force to the right. Apply it.
             force = (PLAYER_MOVE_FORCE, 0)
             self.physics_engine.apply_force(self.player_sprite, force)
         elif self.up_pressed:
