@@ -90,6 +90,8 @@ class GameWindow(arcade.Window):
                                                          gravity=gravity)
         
         self.physics_engine.add_collision_handler("player", "crash", post_handler=OutputService.wall_hit_handler)
+
+        self.physics_engine.add_collision_handler("player", "land", post_handler=OutputService.platform_hit_handler)
         # Add the player.
         self.physics_engine.add_sprite(self.output_service.player_sprite,
                                        friction=PLAYER_FRICTION,
@@ -153,6 +155,7 @@ class GameWindow(arcade.Window):
         self.output_service.draw_lander(self.lander)
         self.output_service.draw_fuel(self.lander)
         self.output_service.draw_altitude(self.lander)
+        self.output_service.draw_success()
 
         
 
@@ -216,6 +219,7 @@ class OutputService:
         self.wall_list: Optional[arcade.SpriteList] = None
         self.platform_list: Optional[arcade.SpriteList] = None
         arcade.set_background_color(arcade.color.BLACK)
+        self.on_ground = False
 
     def setup(self):
         # Create Sprite Lists
@@ -266,7 +270,15 @@ class OutputService:
         player_sprite.remove_from_sprite_lists()
 
     def platform_hit_handler(self, player_sprite, platform_list, _arbiter, _space):
-        pass
+        self.on_ground = True
+
+    def draw_success(self):
+        if self.on_ground == True:
+            win_text = f"You Landed!"
+            arcade.draw_text(win_text, 250, 250, arcade.csscolor.GREEN, 24)
+        
+        
+
 
 def main():
     """ Main method """
