@@ -117,18 +117,19 @@ class GameWindow(arcade.Window):
    
     def on_update(self, delta_time):
         """ Movement and game logic """
-        if self.input_service.right and self.lander._fuel > 0:
-            force = (PLAYER_MOVE_FORCE, 0)
-            self.physics_engine.apply_force(self.output_service.player_sprite, force)
-            self.lander._fuel -= 1
-        elif self.input_service.left and self.lander._fuel > 0:
-            force = (-PLAYER_MOVE_FORCE, 0)
-            self.physics_engine.apply_force(self.output_service.player_sprite, force)
-            self.lander._fuel -= 1
-        elif self.input_service.up and self.lander._fuel > 0:
-            force = (0, PLAYER_MOVE_FORCE)
-            self.physics_engine.apply_force(self.output_service.player_sprite, force)
-            self.lander._fuel -= 1
+        if self.output_service.game_over == False:    
+            if self.input_service.right and self.lander._fuel > 0:
+                force = (PLAYER_MOVE_FORCE, 0)
+                self.physics_engine.apply_force(self.output_service.player_sprite, force)
+                self.lander._fuel -= 1
+            elif self.input_service.left and self.lander._fuel > 0:
+                force = (-PLAYER_MOVE_FORCE, 0)
+                self.physics_engine.apply_force(self.output_service.player_sprite, force)
+                self.lander._fuel -= 1
+            elif self.input_service.up and self.lander._fuel > 0:
+                force = (0, PLAYER_MOVE_FORCE)
+                self.physics_engine.apply_force(self.output_service.player_sprite, force)
+                self.lander._fuel -= 1
 
         # MM: Check for collision with ground
         self.output_service.wall_hit()
@@ -196,6 +197,8 @@ class OutputService:
         self.wall_list: Optional[arcade.SpriteList] = None
         self.platform_list: Optional[arcade.SpriteList] = None
         arcade.set_background_color(arcade.color.BLACK)
+        
+        self.game_over = False
 
     def setup(self):
         # Create Sprite Lists
@@ -249,12 +252,15 @@ class OutputService:
         if wall_hit:
             self.player_sprite.remove_from_sprite_lists()
             arcade.draw_text(lose_text, 330, 330, arcade.csscolor.RED, 24)
+            self.game_over = True
 
     def platform_hit(self):
         platform_check = arcade.check_for_collision_with_list(self.player_sprite, self.platform_list)
         win_text = f"You Landed!"
+        
         if platform_check:
             arcade.draw_text(win_text, 330, 330, arcade.csscolor.LIME_GREEN, 24)
+            self.game_over = True
         
         
 def main():
