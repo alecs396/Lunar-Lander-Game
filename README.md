@@ -8,3 +8,6 @@ Use the arrow keys to apply thrust.
 You only have a limited amount of fuel.
 Be sure to only land on flat surfaces!
 
+NOTE:  We currently have two versions of the game.  
+lunarlander.py & MoonLander.py are two seperate games
+
