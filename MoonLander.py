@@ -89,9 +89,7 @@ class GameWindow(arcade.Window):
         self.physics_engine = arcade.PymunkPhysicsEngine(damping=damping,
                                                          gravity=gravity)
         
-        self.physics_engine.add_collision_handler("player", "crash", post_handler=OutputService.wall_hit_handler)
-
-        self.physics_engine.add_collision_handler("player", "land", post_handler=OutputService.platform_hit_handler)
+        
         # Add the player.
         self.physics_engine.add_sprite(self.output_service.player_sprite,
                                        friction=PLAYER_FRICTION,
@@ -100,8 +98,6 @@ class GameWindow(arcade.Window):
                                        collision_type="player",
                                        max_horizontal_velocity=PLAYER_MAX_HORIZONTAL_SPEED,
                                        max_vertical_velocity=PLAYER_MAX_VERTICAL_SPEED)
-
-        #self.physics_service.add_sprite(self.output_service.player_sprite)
 
         # Create the crash zones.
         self.physics_engine.add_sprite_list(self.output_service.wall_list,
@@ -135,6 +131,8 @@ class GameWindow(arcade.Window):
             self.lander._fuel -= 1
 
         # MM: Check for collision with ground
+        self.output_service.wall_hit()
+        self.output_service.platform_hit()
         # MM: Update state of lander
         # Moving objects in physics engine
         self.physics_engine.step()
@@ -149,10 +147,10 @@ class GameWindow(arcade.Window):
         self.output_service.draw_lander(self.lander)
         self.output_service.draw_fuel(self.lander)
         self.output_service.draw_altitude(self.lander)
-        self.output_service.draw_success()
+        self.output_service.wall_hit()
+        self.output_service.platform_hit()
 
         
-
 class Lander:
     """The Ship the Player controls
         Stereotype: 
@@ -166,7 +164,6 @@ class Lander:
         return self._fuel
 
     
-
 class InputService:
 
     def __init__(self):
@@ -191,7 +188,6 @@ class InputService:
             self.up = False
     
 
-
 class OutputService:
     
     def __init__(self):
@@ -200,7 +196,6 @@ class OutputService:
         self.wall_list: Optional[arcade.SpriteList] = None
         self.platform_list: Optional[arcade.SpriteList] = None
         arcade.set_background_color(arcade.color.BLACK)
-        self.on_ground = False
 
     def setup(self):
         # Create Sprite Lists
@@ -247,20 +242,21 @@ class OutputService:
         altitude_text = f"Altitude: {altitude:.0f}"
         arcade.draw_text(altitude_text, 165, 600, arcade.csscolor.WHITE, 18)
     
-    def wall_hit_handler(self, player_sprite, wall_list, _arbiter, _space):
-        player_sprite.remove_from_sprite_lists()
+    def wall_hit(self):
+        wall_hit = arcade.check_for_collision_with_list(self.player_sprite, self.wall_list)
+        lose_text = "You Died"
 
-    def platform_hit_handler(self, player_sprite, platform_list, _arbiter, _space):
-        self.on_ground = True
+        if wall_hit:
+            self.player_sprite.remove_from_sprite_lists()
+            arcade.draw_text(lose_text, 330, 330, arcade.csscolor.RED, 24)
 
-    def draw_success(self):
-        if self.on_ground == True:
-            win_text = f"You Landed!"
-            arcade.draw_text(win_text, 250, 250, arcade.csscolor.GREEN, 24)
+    def platform_hit(self):
+        platform_check = arcade.check_for_collision_with_list(self.player_sprite, self.platform_list)
+        win_text = f"You Landed!"
+        if platform_check:
+            arcade.draw_text(win_text, 330, 330, arcade.csscolor.LIME_GREEN, 24)
         
         
-
-
 def main():
     """ Main method """
     window = GameWindow(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
