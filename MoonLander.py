@@ -133,7 +133,7 @@ class GameWindow(arcade.Window):
 
         # MM: Check for collision with ground
         self.output_service.wall_hit()
-        self.output_service.platform_hit()
+        self.output_service.platform_hit(self.lander)
         # MM: Update state of lander
         # Moving objects in physics engine
         self.physics_engine.step()
@@ -149,7 +149,7 @@ class GameWindow(arcade.Window):
         self.output_service.draw_fuel(self.lander)
         self.output_service.draw_altitude(self.lander)
         self.output_service.wall_hit()
-        self.output_service.platform_hit()
+        self.output_service.platform_hit(self.lander)
 
         
 class Lander:
@@ -254,12 +254,15 @@ class OutputService:
             arcade.draw_text(lose_text, 330, 330, arcade.csscolor.RED, 24)
             self.game_over = True
 
-    def platform_hit(self):
+    def platform_hit(self, lander):
         platform_check = arcade.check_for_collision_with_list(self.player_sprite, self.platform_list)
         win_text = f"You Landed!"
+        points = lander._fuel * 2
+        points_text = f"Points: {points}"
         
         if platform_check:
-            arcade.draw_text(win_text, 330, 330, arcade.csscolor.LIME_GREEN, 24)
+            arcade.draw_text(win_text, 330, 355, arcade.csscolor.LIME_GREEN, 24)
+            arcade.draw_text(points_text, 335, 330, arcade.csscolor.LIME_GREEN, 24)
             self.game_over = True
         
         
