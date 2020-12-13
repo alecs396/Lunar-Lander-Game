@@ -141,12 +141,6 @@ class GameWindow(arcade.Window):
 
     def on_draw(self):
         """ Draw everything """
-
-        # MM: Consider moving all of this out to a "DrawingService" class or 
-        # something like that. For example...
-        # self.drawing_service.draw_walls(wall_list)
-        # self.drawing_service.draw_lander(self.player_sprite)
-        # self.drawing_service.draw_explosions()
         
         arcade.start_render()
         self.output_service.wall_list.draw()
@@ -179,19 +173,6 @@ class InputService:
         self.right = False
         self.left = False
         self.up = False
-
-    # def apply_input(self, key, lander):
-    #     force = (0, 0)
-    #     if key == arcade.key.LEFT:
-    #         force = (-PLAYER_MOVE_FORCE, 0)
-    #         lander._fuel -= 1
-    #     elif key == arcade.key.RIGHT:
-    #         force = (PLAYER_MOVE_FORCE, 0)
-    #         lander._fuel -= 1
-    #     elif key == arcade.key.UP:
-    #         lander._fuel -= 1
-    #         force = (0, PLAYER_MOVE_FORCE)
-    #     lander.set_thrust(force)
 
     def key_input(self, key, modifiers):
         if key == arcade.key.RIGHT:
